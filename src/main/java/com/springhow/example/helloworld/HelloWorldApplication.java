@@ -1,29 +1,73 @@
-package com.springhow.example.helloworld;
+package guessinggame;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+* Java game “Guess a Number” that allows user to guess a random number that has been generated.
 
-@RestController
-@SpringBootApplication
-public class HelloWorldApplication extends SpringBootServletInitializer {
+*/
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(HelloWorldApplication.class);
-    }
+import javax.swing.*;
 
-    public static void main(String[] args) {
-        SpringApplication.run(HelloWorldApplication.class);
-    }
+publicclassGuessingGame {
 
+publicstaticvoidmain(String[] args) {
 
-    @RequestMapping("/")
-    String helloWorld() {
-        return "5. please visit my website learning-ocean.com";
-    }
+int computerNumber = (int) (Math.random()*100 + 1);
+
+int userAnswer = 0;
+
+System.out.println("The correct guess would be " + computerNumber);
+
+int count = 1;
+
+while (userAnswer != computerNumber)
+
+{
+
+String response = JOptionPane.showInputDialog(null,
+
+"Enter a guess between 1 and 100", "Guessing Game", 3);
+
+userAnswer = Integer.parseInt(response);
+
+JOptionPane.showMessageDialog(null, ""+ determineGuess(userAnswer, computerNumber, count));
+
+count++;
+
+}
+
+}
+
+publicstatic String determineGuess(int userAnswer, int computerNumber, int count){
+
+if (userAnswer <=0 || userAnswer >100) {
+
+return"Your guess is invalid";
+
+}
+
+elseif (userAnswer == computerNumber ){
+
+return"Correct!\nTotal Guesses: " + count;
+
+}
+
+elseif (userAnswer > computerNumber) {
+
+return"Your guess is too high, try again.\nTry Number: " + count;
+
+}
+
+elseif (userAnswer < computerNumber) {
+
+return"Your guess is too low, try again.\nTry Number: " + count;
+
+}
+
+else {
+
+return"Your guess is incorrect\nTry Number: " + count;
+
+}
+
+}
 
 }
